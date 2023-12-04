@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #search-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        #search-input {
+            padding: 10px;
+            width: 80%;
+            max-width: 300px;
+            font-size: 16px;
+        }
+
+        #search-button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #result-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .user-data-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #user-data-message,
+        #user-remarks {
+            margin-top: 10px;
+        }
+
+        #company-description {
+            font-size: 12px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Name Search</h1>
+    </header>
+
+    <div id="search-container">
+        <p><b>Search your full name to get verified</b></p>
+        <label for="search-input">Enter your name:</label>
+        <input type="text" id="search-input" placeholder="e.g., John Doe">
+        <button id="search-button" onclick="searchName()">Search</button>
+    </div>
+
+    <div id="result-container"></div>
+
+    <div id="user-data-container" class="user-data-container">
+        <p><strong>User Data:</strong></p>
+        <p id="user-data-message"></p>
+        <p id="user-remarks"></p>
+    </div>
+
+    <div id="company-description">
+        <p>0 expert is a subsidiary company of Miri Soft and is focused on upskilling beginners in the domain of Information technology</p>
+    </div>
+
+    <script>
+        function searchName() {
+            var searchInput = document.getElementById('search-input').value.trim();
+            var resultContainer = document.getElementById('result-container');
+            var userDataContainer = document.getElementById('user-data-container');
+
+            // Check if the search input is empty
+            if (searchInput === '') {
+                resultContainer.innerHTML = '<p>Please enter a name to search</p>';
+                userDataContainer.style.display = 'none';
+                return;
+            }
+
+            // Replace this with your logic to fetch data from a database or other data source
+            // For simplicity, a static list is used here
+            var names = [
+                { name: 'John Doe', remarks: 'Excellent performance', internshipCompleted: true },
+                { name: 'Jane Smith', remarks: 'Good communication skills', internshipCompleted: true },
+                { name: 'Alice Johnson', remarks: 'Needs improvement in coding', internshipCompleted: true },
+                { name: 'Bob Johnson', remarks: 'Outstanding work', internshipCompleted: true }
+            ];
+
+            // Check if the searched name is in the list
+            var found = names.find(user => user.name.toLowerCase() === searchInput.toLowerCase());
+
+            // Display the result
+            if (found) {
+                resultContainer.innerHTML = `<p>User found: ${found.name}</p>`;
+                showUserData(found);
+            } else {
+                resultContainer.innerHTML = '<p>User not found</p>';
+                hideUserData();
+            }
+        }
+
+        function showUserData(userData) {
+            var userDataContainer = document.getElementById('user-data-container');
+            var userDataMessage = document.getElementById('user-data-message');
+            var userRemarks = document.getElementById('user-remarks');
+
+            // Display user data
+            userDataMessage.textContent = `Internship completed for ${userData.name}`;
+            userRemarks.textContent = `Remarks: ${userData.remarks}`;
+            userDataContainer.style.display = 'block';
+        }
+
+        function hideUserData() {
+            var userDataContainer = document.getElementById('user-data-container');
+            userDataContainer.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
